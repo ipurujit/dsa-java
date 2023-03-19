@@ -5,14 +5,12 @@ import org.dsa.sorting.IBaseSort;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class InsertionSort<T> implements IBaseSort<T> {
-
-
-    public List<T> sort(List<T> input, Comparator<T> comparator) {
-        int len = input.size();
-        // clone input
-        List<T> listToSort = new ArrayList<>(input);
+    private static final Logger log = Logger.getLogger(InsertionSort.class.getName());
+    // This private sorts inplace
+    private void insertSort(List<T> listToSort, Comparator<T> comparator, int len) {
         // iterate from 2nd elem up to last elem
         for (int idx = 1; idx < len; idx++) {
             T currElem = listToSort.get(idx);
@@ -25,6 +23,15 @@ public class InsertionSort<T> implements IBaseSort<T> {
             }
             listToSort.set(currIdx + 1, currElem);
         }
+    }
+
+    public List<T> sort(List<T> input, Comparator<T> comparator) {
+        log.entering(this.getClass().getName(), "sort");
+        int len = input.size();
+        // clone input
+        List<T> listToSort = new ArrayList<>(input);
+        insertSort(listToSort, comparator, len);
+        log.entering(this.getClass().getName(), "sort");
         return listToSort;
     }
 }

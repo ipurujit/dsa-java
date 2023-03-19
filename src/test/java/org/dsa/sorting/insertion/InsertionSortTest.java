@@ -15,9 +15,7 @@ class InsertionSortTest {
         InsertionSort<Integer> insertionSort = new InsertionSort<>();
         List<Integer> inputList = List.of(8, 78, 53, 568, 2, 566);
         log.info(inputList.toString());
-        log.entering(InsertionSort.class.getName(), "sort");
         List<Integer> sortedList = insertionSort.sort(inputList, Integer::compare);
-        log.exiting(InsertionSort.class.getName(), "sort");
         log.info(sortedList.toString());
         assertEquals(inputList.stream().sorted().toList(), sortedList);
     }
