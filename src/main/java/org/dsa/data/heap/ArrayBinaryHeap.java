@@ -1,5 +1,7 @@
 package org.dsa.data.heap;
 
+import org.dsa.util.SwapUtil;
+
 import java.util.*;
 
 /**
@@ -121,15 +123,9 @@ public class ArrayBinaryHeap<T> implements CustomHeap<T> {
         heap.clear();
     }
 
-    private void swap(int idx1, int idx2) {
-        T temp = heap.get(idx1);
-        heap.set(idx1, heap.get(idx2));
-        heap.set(idx2, temp);
-    }
-
     private T removeOp() {
         // swap root and end
-        swap(0, heap.size() - 1);
+        SwapUtil.swap(heap, 0, heap.size() - 1);
         // remove root (at the end)
         T removed = heap.remove(heap.size() - 1);
         // heapify the rest (keep swapping from root till leaf until heapified)
@@ -141,17 +137,17 @@ public class ArrayBinaryHeap<T> implements CustomHeap<T> {
         // get left and right
         int left = 2 * idx + 1;
         int right = left + 1;
-        int largestIdx = idx;
-        if (left < heap.size() && comparator.compare(heap.get(largestIdx), heap.get(left)) > 0) {
-            largestIdx = left;
+        int smallestIdx = idx;
+        if (left < heap.size() && comparator.compare(heap.get(smallestIdx), heap.get(left)) > 0) {
+            smallestIdx = left;
         }
-        if (right < heap.size() && comparator.compare(heap.get(largestIdx), heap.get(right)) > 0) {
-            largestIdx = right;
+        if (right < heap.size() && comparator.compare(heap.get(smallestIdx), heap.get(right)) > 0) {
+            smallestIdx = right;
         }
-        if (largestIdx != idx) {
-            // swap largest with idx
-            swap(idx, largestIdx);
-            heapifyAfterRemove(largestIdx);
+        if (smallestIdx != idx) {
+            // swap smallest with idx
+            SwapUtil.swap(heap, idx, smallestIdx);
+            heapifyAfterRemove(smallestIdx);
         }
     }
 
@@ -167,7 +163,7 @@ public class ArrayBinaryHeap<T> implements CustomHeap<T> {
         int parentIdx = (idx - 1) / 2;
         while (idx > 0 &&
                 comparator.compare(heap.get(parentIdx), heap.get(idx)) > 0) {
-            swap(parentIdx, idx);
+            SwapUtil.swap(heap, parentIdx, idx);
             idx = parentIdx;
             parentIdx = (idx - 1) / 2;
         }
