@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.logging.Logger;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class IBaseSortTest {
     private static final Logger log = Logger.getLogger(IBaseSortTest.class.getName());
