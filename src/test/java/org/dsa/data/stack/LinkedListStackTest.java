@@ -88,9 +88,9 @@ class LinkedListStackTest {
     @Test
     void addAll() {
         stack.clear();
-        stack.addAll(List.of(10, 20));
-        assertEquals(20, stack.pop());
-        assertEquals(10, stack.pop());
+        stack.addAll(List.of(0, 1));
+        assertEquals(1, stack.pop());
+        assertEquals(0, stack.pop());
         assertNull(stack.pop());
     }
 
