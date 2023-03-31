@@ -1,15 +1,15 @@
 package org.dsa.data.stack;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import org.dsa.data.LinkedListNode;
+
+import java.util.*;
 
 public class LinkedListStack<T> implements CustomStack<T> {
-    private final List<T> list;
+    private LinkedListNode<T> top = null;
+    private int size = 0;
 
     public LinkedListStack() {
-        this.list = new LinkedList<>();
+        
     }
 
     public LinkedListStack(Collection<T> list) {
@@ -19,32 +19,32 @@ public class LinkedListStack<T> implements CustomStack<T> {
 
     @Override
     public int size() {
-        return list.size();
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return list.isEmpty();
+        return size < 1;
     }
 
     @Override
     public boolean contains(Object o) {
-        return list.contains(o);
+        return containsOp(o);
     }
 
     @Override
     public Iterator<T> iterator() {
-        return list.iterator();
+        return toList().iterator();
     }
 
     @Override
     public Object[] toArray() {
-        return list.toArray();
+        return toList().toArray();
     }
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return list.toArray(a);
+        return toList().toArray(a);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class LinkedListStack<T> implements CustomStack<T> {
 
     @Override
     public T remove() {
-        if (list.isEmpty()) {
+        if (size < 1) {
             throw new IllegalStateException("Stack is empty!");
         }
         return removeOp();
@@ -67,12 +67,12 @@ public class LinkedListStack<T> implements CustomStack<T> {
 
     @Override
     public T pop() {
-        return (list.isEmpty() ? null : removeOp());
+        return (size < 1 ? null : removeOp());
     }
 
     @Override
     public T element() {
-        if (list.isEmpty()) {
+        if (size < 1) {
             throw new IllegalStateException("Stack is empty!");
         }
         return peekOp();
@@ -80,7 +80,7 @@ public class LinkedListStack<T> implements CustomStack<T> {
 
     @Override
     public T peek() {
-        return (list.isEmpty() ? null : peekOp());
+        return (size < 1 ? null : peekOp());
     }
 
     @Override
@@ -120,18 +120,60 @@ public class LinkedListStack<T> implements CustomStack<T> {
 
     @Override
     public void clear() {
-        list.clear();
+        int sizeCopy = size;
+        while (sizeCopy-- > 0) {
+            removeOp();
+        }
     }
 
     private boolean addOp(T t) {
-        return list.add(t);
+        if (t == null) {
+            return false;
+        }
+        LinkedListNode<T> linkedListNode = new LinkedListNode<>();
+        linkedListNode.setValue(t);
+        linkedListNode.setPrevious(top);
+        linkedListNode.setNext(null);
+        if (top == null) {
+            top = linkedListNode;
+        } else {
+            top.setNext(linkedListNode);
+            top = top.getNext();
+        }
+        size++;
+        return true;
     }
 
     private T removeOp() {
-        return list.remove(list.size() - 1);
+        T result = top.getValue();
+        top = top.getPrevious();
+        size--;
+        return result;
     }
 
     private T peekOp() {
-        return list.get(list.size() - 1);
+        return top.getValue();
+    }
+
+    private boolean containsOp(Object value) {
+        LinkedListNode<T> topCopy = top;
+        while (topCopy != null) {
+            if (Objects.equals(value, topCopy.getValue())) {
+                return true; // found
+            }
+            topCopy = topCopy.getPrevious();
+        }
+        return false;
+    }
+
+    private List<T> toList() {
+        List<T> list = new LinkedList<>();
+        LinkedListNode<T> topCopy = top;
+        while (topCopy != null) {
+            list.add(topCopy.getValue());
+            topCopy = topCopy.getPrevious();
+        }
+        Collections.reverse(list);
+        return list;
     }
 }

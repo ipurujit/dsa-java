@@ -2,6 +2,7 @@ package org.dsa.data.stack;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -24,6 +25,8 @@ class LinkedListStackTest {
         stack.clear();
         stack.push(10);
         assertTrue(stack.contains(10));
+        stack.clear();
+        assertFalse(stack.contains(10));
     }
 
     @Test
@@ -33,6 +36,8 @@ class LinkedListStackTest {
 
     @Test
     void toArray() {
+        stack.clear();
+        stack.push(10);
         assertNotNull(stack.toArray());
     }
 
@@ -42,12 +47,19 @@ class LinkedListStackTest {
     }
 
     @Test
+    void add() {
+        assertFalse(stack.add(null));
+        assertTrue(stack.add(10));
+    }
+
+    @Test
     void remove() {
         stack.clear();
         assertThrows(IllegalStateException.class, stack::remove);
         stack.add(10);
         assertEquals(10, stack.remove());
         assertEquals(0, stack.size());
+        assertFalse(stack.remove(10));
     }
 
     @Test
@@ -83,6 +95,10 @@ class LinkedListStackTest {
         stack.add(10);
         stack.add(20);
         assertTrue(stack.containsAll(List.of(10, 20)));
+        stack.add(null);
+        List<Integer> list = new LinkedList<>();
+        list.add(null);
+        assertFalse(stack.containsAll(list));
     }
 
     @Test
@@ -92,6 +108,9 @@ class LinkedListStackTest {
         assertEquals(1, stack.pop());
         assertEquals(0, stack.pop());
         assertNull(stack.pop());
+        List<Integer> list = new LinkedList<>();
+        list.add(null);
+        assertFalse(stack.addAll(list));
     }
 
     @Test
