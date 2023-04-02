@@ -1,4 +1,4 @@
-package org.dsa.data.model;
+package org.dsa.traversal.model;
 
 public enum TraversalType {
     INORDER,

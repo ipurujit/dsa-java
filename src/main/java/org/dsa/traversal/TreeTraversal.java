@@ -2,7 +2,7 @@ package org.dsa.traversal;
 
 import lombok.Getter;
 import org.dsa.data.BinaryTreeNode;
-import org.dsa.data.model.TraversalType;
+import org.dsa.traversal.model.TraversalType;
 import org.dsa.data.tree.CustomTree;
 
 import java.util.LinkedList;

@@ -1,6 +1,6 @@
 package org.dsa.traversal;
 
-import org.dsa.data.model.TraversalType;
+import org.dsa.traversal.model.TraversalType;
 
 import java.util.List;
 
