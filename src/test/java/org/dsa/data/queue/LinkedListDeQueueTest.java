@@ -163,10 +163,10 @@ class LinkedListDeQueueTest {
 
     @Test
     void addAllConstructor() {
-        LinkedListDeQueue<Integer> stack2 = new LinkedListDeQueue<>(List.of(10, 20));
-        assertEquals(10, stack2.poll());
-        assertEquals(20, stack2.poll());
-        assertNull(stack2.poll());
+        LinkedListDeQueue<Integer> queue2 = new LinkedListDeQueue<>(List.of(10, 20));
+        assertEquals(10, queue2.poll());
+        assertEquals(20, queue2.poll());
+        assertNull(queue2.poll());
     }
 
     @Test
