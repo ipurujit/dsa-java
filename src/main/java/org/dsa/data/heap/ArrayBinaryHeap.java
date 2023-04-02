@@ -152,6 +152,9 @@ public class ArrayBinaryHeap<T> implements CustomHeap<T> {
     }
 
     private boolean addOp(T t) {
+        if (t == null) {
+            return false;
+        }
         boolean addResult = heap.add(t);
         // heapify (keep swapping from leaf till root until heapified)
         heapifyAfterAdd();

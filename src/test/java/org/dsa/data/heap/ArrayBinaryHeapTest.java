@@ -3,6 +3,7 @@ package org.dsa.data.heap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -83,6 +84,9 @@ class ArrayBinaryHeapTest {
             heapSortResult[idx++] = arrayBinaryHeap.remove();
         }
         assertArrayEquals(heapSortResult, list.stream().sorted().toArray());
+        List<Integer> listWithNull = new LinkedList<>();
+        listWithNull.add(null);
+        assertFalse(arrayBinaryHeap.addAll(listWithNull));
     }
 
     @Test
